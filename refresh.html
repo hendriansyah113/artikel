@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Auto Refreshing...</title>
+  </head>
+  <body>
+    <h2>Memuat Artikel...</h2>
+    <iframe id="newsFrame" width="100%" height="500px"></iframe>
+
+    <script>
+      // Ambil parameter dari URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const url = urlParams.get("url");
+      let views = parseInt(urlParams.get("views"));
+      let count = 0;
+
+      if (url && views > 0) {
+        document.getElementById("newsFrame").src = url; // Tampilkan berita dalam iframe
+
+        let interval = setInterval(() => {
+          if (count >= views) {
+            clearInterval(interval);
+            alert("Selesai!");
+          } else {
+            document.getElementById("newsFrame").src = url; // Refresh iframe
+            count++;
+          }
+        }, 1000); // Refresh setiap 5 detik (bisa disesuaikan)
+      }
+    </script>
+  </body>
+</html>
